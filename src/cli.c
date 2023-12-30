@@ -81,11 +81,11 @@ const static cli_arg cli_args[] = {
     {"-ps", "--packer-script", "invalid packer script", set_packer_script,
      true},
     {"-po", "--packer-output", "invalid packer output", set_packer_output,
-     true},
+     false},
     {"-es", "--export-script", "invalid export script", set_export_script,
-     true},
+     false},
     {"-eo", "--export-output", "invalid export output", set_export_output,
-     true},
+     false},
     {"-w", "--width", "invalid width constraint", set_width_constraint, false},
 };
 

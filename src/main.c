@@ -211,7 +211,11 @@ int main(const int argc, const char *const argv[const]) {
   size_t length = 0;
   size_t capacity = 256;
 
-  args a = {0};
+  args a = {
+      .packerOutputFile = "out.png",
+      .exporterOutputFile = "out.txt",
+      .exporterScript = NULL,
+  };
 
   const parse_result result = parse_args(argc, argv, &a);
 
@@ -228,8 +232,10 @@ int main(const int argc, const char *const argv[const]) {
 
   if (rectangles) {
     create_texture(a.packerOutputFile, textures, rectangles, length, w, h);
-    export(textures, rectangles, length, a.exporterScript,
-           a.exporterOutputFile);
+    if (a.exporterScript != NULL) {
+      export(textures, rectangles, length, a.exporterScript,
+             a.exporterOutputFile);
+    }
     free(rectangles);
   }
 
