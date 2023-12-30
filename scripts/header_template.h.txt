@@ -1,0 +1,14 @@
+#ifndef <UPPER_CASE_NAME>_H
+#define <UPPER_CASE_NAME>_H
+
+typedef enum {
+<ENUM_DEFINITIONS>
+} <LOWER_CASE_NAME>_id;
+
+struct {
+  int left, top, width, height;
+} const static <LOWER_CASE_NAME>_rects[] = {
+<RECT_DEFINITIONS>
+};
+
+#endif
