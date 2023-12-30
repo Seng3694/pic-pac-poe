@@ -73,23 +73,29 @@ typedef struct {
   const char label[32];
   const char error[256];
   cli_func parse;
+  bool required;
 } cli_arg;
 
 const static cli_arg cli_args[] = {
-    {"-h", "--help", "", print_help},
-    {"-ps", "--packer-script", "invalid packer script", set_packer_script},
-    {"-po", "--packer-output", "invalid packer output", set_packer_output},
-    {"-es", "--export-script", "invalid export script", set_export_script},
-    {"-eo", "--export-output", "invalid export output", set_export_output},
-    {"-w", "--width", "invalid width constraint", set_width_constraint},
+    {"-h", "--help", "", print_help, false},
+    {"-ps", "--packer-script", "invalid packer script", set_packer_script,
+     true},
+    {"-po", "--packer-output", "invalid packer output", set_packer_output,
+     true},
+    {"-es", "--export-script", "invalid export script", set_export_script,
+     true},
+    {"-eo", "--export-output", "invalid export output", set_export_output,
+     true},
+    {"-w", "--width", "invalid width constraint", set_width_constraint, false},
 };
 
 const static int cli_args_count = sizeof(cli_args) / sizeof(cli_arg);
 
 parse_result parse_args(const int argc, const char *const *const argv,
                         args *const a) {
-  if (argc == 1)
-    return PARSE_RESULT_SUCCESS;
+  bool argsSet[cli_args_count];
+  for (int i = 0; i < cli_args_count; ++i)
+    argsSet[i] = false;
 
   for (int i = 1; i < argc; i += 2) {
     for (int j = 0; j < cli_args_count; ++j) {
@@ -104,10 +110,19 @@ parse_result parse_args(const int argc, const char *const *const argv,
         } else if (result == PARSE_RESULT_EXIT) {
           return PARSE_RESULT_EXIT;
         }
+        argsSet[j] = true;
         break;
       }
     }
   }
 
-  return PARSE_RESULT_SUCCESS;
+  bool hasMissingArg = false;
+  for (int i = 0; i < cli_args_count; ++i) {
+    if (!argsSet[i] && cli_args[i].required) {
+      fprintf(stderr, "missing option: %s\n", cli_args[i].label);
+      hasMissingArg = true;
+    }
+  }
+
+  return hasMissingArg ? PARSE_RESULT_FAIL : PARSE_RESULT_SUCCESS;
 }

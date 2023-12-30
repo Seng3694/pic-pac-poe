@@ -1,6 +1,7 @@
 CC=gcc
 MKDIR=mkdir
 RM=rm -f
+CP=cp -r
 
 CFLAGS=-g -O0 -Wall -std=c99 -fsanitize=undefined -fsanitize=address
 
@@ -22,6 +23,12 @@ $(BIN)/%.o: $(SRC)/%.c | $(BIN)
 
 $(BIN):
 	$(MKDIR) $(BIN)
+
+install: $(BIN)/ppp
+	$(CP) $(BIN)/ppp /usr/local/bin
+
+uninstall:
+	$(RM) /usr/local/bin/ppp
 
 clean:
 	$(RM) $(BIN)/*

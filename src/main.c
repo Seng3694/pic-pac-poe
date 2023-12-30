@@ -211,12 +211,7 @@ int main(const int argc, const char *const argv[const]) {
   size_t length = 0;
   size_t capacity = 256;
 
-  args a = {
-      .packerScript = "scripts/bin_pack.lua",
-      .packerOutputFile = "out.png",
-      .exporterScript = "scripts/header_export.lua",
-      .exporterOutputFile = "out.h",
-  };
+  args a = {0};
 
   const parse_result result = parse_args(argc, argv, &a);
 

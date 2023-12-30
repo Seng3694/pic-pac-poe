@@ -42,7 +42,7 @@ function Export(textures, outputFile)
         table.insert(rectDefinitions, rectDefinition)
     end
 
-    write_file(outputFile, read_file("scripts/header_template.h.txt")
+    write_file(outputFile, read_file("example/header_template.h.txt")
         :gsub("<UPPER_CASE_NAME>", upper)
         :gsub("<LOWER_CASE_NAME>", lower)
         :gsub("<ENUM_DEFINITIONS>", table.concat(enumDefinitions, ",\n"))
