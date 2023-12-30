@@ -141,6 +141,8 @@ sudo make uninstall
 ## Dependencies
 
 - [Lua](https://github.com/lua/lua)
+- [stb_image](https://github.com/nothings/stb/stb_image.h)
+- [stb_image_write](https://github.com/nothings/stb/stb_image_write.h)
 
 ## License
 
