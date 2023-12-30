@@ -1,0 +1,4 @@
+src/stb_image_write.h linguist-vendored=true
+src/stb_image.h linguist-vendored=true
+*.h linguist-language=C
+*.c linguist-language=C
